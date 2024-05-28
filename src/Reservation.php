@@ -786,11 +786,15 @@ JAVASCRIPT;
                              / $CFG_GLPI['time_step'] / MINUTE_TIMESTAMP)
                        * $CFG_GLPI['time_step'] * MINUTE_TIMESTAMP;
         echo "<tr class='tab_bg_2'><td>" . __('Duration') . "</td><td>";
-        $rand = Dropdown::showTimeStamp("resa[_duration]", [
-            'min'        => 0,
-            'max'        => 24 * HOUR_TIMESTAMP,
-            'value'      => $default_delay,
-            'emptylabel' => __('Specify an end date')
+        // $rand = Dropdown::showTimeStamp("resa[_duration]", [
+        //     'min'        => 0,
+        //     'max'        => 24 * HOUR_TIMESTAMP,
+        //     'value'      => $default_delay,
+        //     'emptylabel' => __('Specify an end date')
+        // ]);
+        Html::showDateTimeField("resa[end]", [
+            'value' => $resa->fields["end"],
+            'maybeempty'=> false
         ]);
         echo "<br><div id='date_end$rand'></div>";
         $params = [
@@ -813,14 +817,14 @@ JAVASCRIPT;
         echo "</td></tr>";
 
         if (empty($ID)) {
-            echo "<tr class='tab_bg_2'><td>" . __('Repetition') . "</td>";
-            echo "<td>";
-            $rand = Dropdown::showFromArray('periodicity[type]', [
-                ''      => _x('periodicity', 'None'),
-                'day'   => _x('periodicity', 'Daily'),
-                'week'  => _x('periodicity', 'Weekly'),
-                'month' => _x('periodicity', 'Monthly')
-            ]);
+            // echo "<tr class='tab_bg_2'><td>" . __('Repetition') . "</td>";
+            // echo "<td>";
+            // $rand = Dropdown::showFromArray('periodicity[type]', [
+            //     ''      => _x('periodicity', 'None'),
+            //     'day'   => _x('periodicity', 'Daily'),
+            //     'week'  => _x('periodicity', 'Weekly'),
+            //     'month' => _x('periodicity', 'Monthly')
+            // ]);
             $field_id = Html::cleanId("dropdown_periodicity[type]$rand");
 
             Ajax::updateItemOnSelectEvent(
