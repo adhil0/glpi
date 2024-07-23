@@ -27,6 +27,7 @@ jobs:
           sudo chown -R 1000:1000 /glpi
       - name: "Install dependencies"
         run: |
+          docker exec ${{ job.services.app.id }} ls -a /var/www/glpi
           docker exec ${{ job.services.app.id }} composer install --optimize-autoloader --prefer-dist --no-interaction --no-progress --no-suggest
       - name: "Define release name"
         run: |
