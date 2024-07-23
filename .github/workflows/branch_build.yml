@@ -16,18 +16,16 @@ jobs:
       app:
         image: "ghcr.io/glpi-project/githubactions-php:${{ github.event.inputs.php-version }}"
         options: >-
-          --volume /glpi:/var/glpi
+          --volume /glpi:/var/www/glpi
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v3"
       - name: "Deploy source into app container"
         run: |
           sudo cp --no-target-directory --preserve --recursive `pwd` /glpi
-          ls -a /glpi
           sudo chown -R 1000:1000 /glpi
       - name: "Install dependencies"
         run: |
-          docker exec ${{ job.services.app.id }} ls -a /var/www/glpi
           docker exec ${{ job.services.app.id }} composer install --optimize-autoloader --prefer-dist --no-interaction --no-progress --no-suggest
       - name: "Define release name"
         run: |
