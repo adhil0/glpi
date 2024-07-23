@@ -22,8 +22,8 @@ jobs:
         uses: "actions/checkout@v3"
       - name: "Deploy source into app container"
         run: |
-          ls -a
           sudo cp --no-target-directory --preserve --recursive `pwd` /glpi
+          ls -a /glpi
           sudo chown -R 1000:1000 /glpi
       - name: "Install dependencies"
         run: |
